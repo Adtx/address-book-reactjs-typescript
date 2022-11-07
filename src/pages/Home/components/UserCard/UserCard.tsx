@@ -1,13 +1,17 @@
-import React from "react"
 import { User } from "../../../../types"
+import * as S from "./styles"
 
 export default function UserCard({ user }: { user: User }) {
   return (
-    <article>
-      <img src={user.picture.thumbnail} alt="Profile picture" />
-      <h3>{`${user.name.first} ${user.name.last}`}</h3>
-      <p data-testid="username">{user.login.username}</p>
-      <p>{user.email}</p>
-    </article>
+    <S.StyledUserCard key={user.login.md5}>
+      <S.PictureContainer>
+        <S.Picture src={user.picture.thumbnail} alt="Profile picture" />
+      </S.PictureContainer>
+      <S.ProfileContainer>
+        <h3>{`${user.name.first} ${user.name.last}`}</h3>
+        <S.UserName data-testid="username">{user.login.username}</S.UserName>
+        <S.Email>{user.email}</S.Email>
+      </S.ProfileContainer>
+    </S.StyledUserCard>
   )
 }
