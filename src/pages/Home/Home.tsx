@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <StyledHome>
-      <UserList userList={userList} />
+      <UserList userList={userList} setUserList={setUserList} />
     </StyledHome>
   )
 }
