@@ -50,7 +50,7 @@ export default function UserList({
   }, [userList])
 
   return (
-    <UserListContainer>
+    <UserListContainer endOfUserCatalog={endOfCatalog}>
       <StyledUserList ref={listRef}>
         {userList.map((user) => (
           <UserCard user={user} key={user.login.md5} />

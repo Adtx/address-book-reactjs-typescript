@@ -1,3 +1,6 @@
+export interface IUserListContainerProps {
+  endOfUserCatalog?: boolean
+}
 export interface IStyledUserListProps {
   ref?: any
 }

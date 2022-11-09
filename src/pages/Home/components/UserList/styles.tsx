@@ -3,15 +3,16 @@ import {
   IMessageProps,
   IStyledMessageProps,
   IStyledUserListProps,
+  IUserListContainerProps,
 } from "./types"
 import spinner from "./spinner.gif"
 
-export const UserListContainer = styled.div`
+export const UserListContainer = styled.div<IUserListContainerProps>`
   display: flex;
   position: relative;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: ${(props) => (props.endOfUserCatalog ? "30px" : "0px")};
 `
 
 export const StyledUserList = styled.section<IStyledUserListProps>`
