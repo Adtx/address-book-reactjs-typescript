@@ -9,7 +9,7 @@ import {
   EndOfCatalogMessage,
 } from "./styles"
 
-const MAX_CATALOG_LENGTH = 1000
+export const MAX_CATALOG_LENGTH = 1000
 const NEW_USER_BATCH_FETCH_DELAY_IN_MS = 200
 
 export default function UserList({

@@ -6,10 +6,11 @@ import Home from "../pages/Home/Home"
 import {
   RANDOM_USER_API_MOCK_RESPONSE_FIFTY_RESULTS,
   RANDOM_USER_API_MOCK_RESPONSE_ONE_RESULT,
+  RANDOM_USER_API_MOCK_RESPONSE_TWO_RESULTS,
+  EMAIL_REGEX,
 } from "../testUtils"
-import { RANDOM_USER_API_MOCK_RESPONSE_TWO_RESULTS } from "../testUtils"
-import { EMAIL_REGEX } from "../testUtils"
 import { RANDOM_USER_API_BASE_URL } from "../apiUtils"
+import { MAX_CATALOG_LENGTH } from "../pages/Home/components/UserList/UserList"
 
 const server = setupServer(
   rest.get(RANDOM_USER_API_BASE_URL, (req, res, ctx) => {
@@ -72,7 +73,8 @@ describe("User list related tests", () => {
 
     const { findAllByRole } = render(<Home />)
 
-    let renderedUsers = await findAllByRole("article")
+    //wait for the initial batch of users to render before scrolling
+    await findAllByRole("article")
 
     //scroll to the bottom of the page
     fireEvent.scroll(window, {
@@ -83,7 +85,7 @@ describe("User list related tests", () => {
     //wait for new user batch to be rendered
     await new Promise((r) => setTimeout(r, 1000))
 
-    renderedUsers = await findAllByRole("article")
+    let renderedUsers = await findAllByRole("article")
 
     expect(renderedUsers).toHaveLength(
       initialDisplayListSize + newUserBatchSize
@@ -114,6 +116,7 @@ describe("User list related tests", () => {
 
     const { findAllByRole, findByText } = render(<Home />)
 
+    //wait for the initial batch of users to render before scrolling
     await findAllByRole("article")
 
     //scroll to the bottom of the page
@@ -126,5 +129,75 @@ describe("User list related tests", () => {
     const loadingMessage = await findByText(/Loading\.{3}/i)
 
     expect(loadingMessage).toBeVisible()
+  })
+
+  // This test fails because jsdom doesn't support layout which is needed for scrolling
+  test("displays end of user catalog message when there are no more users to load", async () => {
+    server.use(
+      rest.get(RANDOM_USER_API_BASE_URL, (req, res, ctx) => {
+        return res(ctx.json(RANDOM_USER_API_MOCK_RESPONSE_FIFTY_RESULTS))
+      })
+    )
+    const newUserBatchSize = 50
+    const numberOfScrollsUntilEndOfUsersCatalog =
+      MAX_CATALOG_LENGTH / newUserBatchSize
+
+    const { findAllByRole, getByText } = render(<Home />)
+
+    //wait for the initial batch of users to render before scrolling
+    await findAllByRole("article")
+
+    //repeatedly scroll to the bottom of the page until reaching the end of the users catalog
+    for (let i = 0; i < numberOfScrollsUntilEndOfUsersCatalog; i++) {
+      //scroll to the bottom of the page
+      fireEvent.scroll(window, {
+        target: {
+          scrollTop: document.documentElement.clientHeight - window.innerHeight,
+        },
+      })
+      if (i < numberOfScrollsUntilEndOfUsersCatalog - 1) {
+        //wait for new user batch to be rendered
+        await new Promise((r) => setTimeout(r, 1500))
+      }
+    }
+
+    const endofUsersCatalogMessage = await getByText(/end of users catalog/i)
+
+    expect(endofUsersCatalogMessage).toBeVisible()
+  })
+
+  // This test passes despite using jsdom because the scroll events don't happen(because of jsdom)
+  test("does not display more than one thousand users", async () => {
+    server.use(
+      rest.get(RANDOM_USER_API_BASE_URL, (req, res, ctx) => {
+        return res(ctx.json(RANDOM_USER_API_MOCK_RESPONSE_FIFTY_RESULTS))
+      })
+    )
+    const newUserBatchSize = 50
+    const numberOfScrollsUntilEndOfUsersCatalog =
+      MAX_CATALOG_LENGTH / newUserBatchSize
+
+    const { findAllByRole } = render(<Home />)
+
+    //wait for the initial batch of users to render before scrolling
+    await findAllByRole("article")
+
+    //repeatedly scroll to the bottom of the page until reaching the end of the users catalog
+    for (let i = 0; i < numberOfScrollsUntilEndOfUsersCatalog; i++) {
+      //scroll to the bottom of the page
+      fireEvent.scroll(window, {
+        target: {
+          scrollTop: document.documentElement.clientHeight - window.innerHeight,
+        },
+      })
+      if (i < numberOfScrollsUntilEndOfUsersCatalog - 1) {
+        //wait for new user batch to be rendered
+        await new Promise((r) => setTimeout(r, 1500))
+      }
+    }
+
+    let renderedUsers = await findAllByRole("article")
+
+    expect(renderedUsers.length).not.toBeGreaterThan(1000)
   })
 })
