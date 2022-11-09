@@ -1,11 +1,17 @@
 import styled from "styled-components"
-import { IStyledUserListProps } from "./types"
+import {
+  IMessageProps,
+  IStyledMessageProps,
+  IStyledUserListProps,
+} from "./types"
 import spinner from "./spinner.gif"
 
 export const UserListContainer = styled.div`
   display: flex;
-  justify-content: center;
   position: relative;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
 `
 
 export const StyledUserList = styled.section<IStyledUserListProps>`
@@ -26,11 +32,11 @@ const LoadingMessageContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
 `
 
-const StyledLoadingMessage = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%);
+const StyledMessage = styled.div<IStyledMessageProps>`
+  position: ${(props) => props.position ?? "relative"};
+  top: ${(props) => props.top};
+  left: ${(props) => props.left};
+  transform: ${(props) => props.transform ?? "initial"};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,6 +46,9 @@ const StyledLoadingMessage = styled.div`
   background: #fff;
   border-radius: 5px;
   border: 1px solid #eaeaea;
+  width: ${(props) => props.width ?? "initial"};
+  margin-top: ${(props) => props.marginTop};
+  margin-left: ${(props) => props.marginLeft};
 `
 
 const SpinnerContainer = styled.div`
@@ -53,19 +62,33 @@ const Spinner = styled.img`
   transform: scale(3.5);
 `
 
-const Message = styled.h1`
-  margin-left: 10px;
+const Message = styled.h1<IMessageProps>`
+  margin-left: ${(props) => props.marginLeft ?? "0"};
 `
 
 export function LoadingMessage() {
   return (
     <LoadingMessageContainer>
-      <StyledLoadingMessage>
+      <StyledMessage
+        position="fixed"
+        top="50%"
+        left="50%"
+        width="25%"
+        transform="translateX(-50%)"
+      >
         <SpinnerContainer>
           <Spinner src={spinner} alt="Loading..." />
         </SpinnerContainer>
-        <Message>Loading...</Message>
-      </StyledLoadingMessage>
+        <Message marginLeft={"10px"}>Loading...</Message>
+      </StyledMessage>
     </LoadingMessageContainer>
+  )
+}
+
+export function EndOfCatalogMessage() {
+  return (
+    <StyledMessage width="70%" marginTop="30px" marginLeft="2.5%">
+      <Message>End of users catalog</Message>
+    </StyledMessage>
   )
 }

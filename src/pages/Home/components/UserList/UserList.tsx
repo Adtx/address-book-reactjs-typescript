@@ -2,7 +2,12 @@ import React, { useEffect, useRef, useState } from "react"
 import { fetchUsers } from "../../../../apiUtils"
 import { User } from "../../../../types"
 import UserCard from "../UserCard/UserCard"
-import { StyledUserList, UserListContainer, LoadingMessage } from "./styles"
+import {
+  StyledUserList,
+  UserListContainer,
+  LoadingMessage,
+  EndOfCatalogMessage,
+} from "./styles"
 
 const MAX_CATALOG_LENGTH = 1000
 const NEW_USER_BATCH_FETCH_DELAY_IN_MS = 200
@@ -17,6 +22,7 @@ export default function UserList({
   const [isLoading, setIsLoading] = useState(false)
   const listRef = useRef()
   let loading = false
+  const endOfCatalog = userList.length >= MAX_CATALOG_LENGTH
 
   const handleScroll = async () => {
     if (loading) return
@@ -51,6 +57,7 @@ export default function UserList({
         ))}
       </StyledUserList>
       {isLoading && <LoadingMessage />}
+      {endOfCatalog && <EndOfCatalogMessage />}
     </UserListContainer>
   )
 }
