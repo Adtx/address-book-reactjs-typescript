@@ -89,4 +89,42 @@ describe("User list related tests", () => {
       initialDisplayListSize + newUserBatchSize
     )
   })
+
+  test("displays loading message while loading initial users batch", async () => {
+    server.use(
+      rest.get(RANDOM_USER_API_BASE_URL, (req, res, ctx) => {
+        return res(ctx.json(RANDOM_USER_API_MOCK_RESPONSE_FIFTY_RESULTS))
+      })
+    )
+
+    const { findByText } = render(<Home />)
+
+    const loadingMessage = await findByText(/Loading\.{3}/i)
+
+    expect(loadingMessage).toBeVisible()
+  })
+
+  // This test fails because jsdom doesn't support layout which is needed for scrolling
+  test("displays loading message while loading next users batch", async () => {
+    server.use(
+      rest.get(RANDOM_USER_API_BASE_URL, (req, res, ctx) => {
+        return res(ctx.json(RANDOM_USER_API_MOCK_RESPONSE_FIFTY_RESULTS))
+      })
+    )
+
+    const { findAllByRole, findByText } = render(<Home />)
+
+    await findAllByRole("article")
+
+    //scroll to the bottom of the page
+    fireEvent.scroll(window, {
+      target: {
+        scrollTop: document.documentElement.clientHeight - window.innerHeight,
+      },
+    })
+
+    const loadingMessage = await findByText(/Loading\.{3}/i)
+
+    expect(loadingMessage).toBeVisible()
+  })
 })
