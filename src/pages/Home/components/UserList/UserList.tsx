@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { fetchUsers } from "../../../../apiUtils"
 import { User } from "../../../../types"
 import UserCard from "../UserCard/UserCard"
-import { StyledUserList, UserListContainer } from "./styles"
+import { StyledUserList, UserListContainer, LoadingMessage } from "./styles"
 
 const MAX_CATALOG_LENGTH = 1000
+const NEW_USER_BATCH_FETCH_DELAY_IN_MS = 200
 
 export default function UserList({
   userList,
@@ -13,6 +14,7 @@ export default function UserList({
   userList: User[]
   setUserList: React.Dispatch<React.SetStateAction<User[]>>
 }) {
+  const [isLoading, setIsLoading] = useState(false)
   const listRef = useRef()
   let loading = false
 
@@ -26,9 +28,12 @@ export default function UserList({
 
     if (moreUsersToLoad && endOfListReached) {
       loading = true
-      const newUserBatch = await fetchUsers()
+      setIsLoading(true)
+      //Fetch new user batch after a small delay to allow for the 'Loading...' message to be seen
+      const newUserBatch = await fetchUsers(NEW_USER_BATCH_FETCH_DELAY_IN_MS)
       setUserList((userList) => [...userList, ...newUserBatch!])
       loading = false
+      setIsLoading(false)
     }
   }
 
@@ -45,6 +50,7 @@ export default function UserList({
           <UserCard user={user} key={user.login.md5} />
         ))}
       </StyledUserList>
+      {isLoading && <LoadingMessage />}
     </UserListContainer>
   )
 }
