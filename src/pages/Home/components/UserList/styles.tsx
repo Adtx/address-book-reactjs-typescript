@@ -13,12 +13,13 @@ export const UserListContainer = styled.div<IUserListContainerProps>`
   flex-direction: column;
   align-items: center;
   margin-bottom: ${(props) => (props.endOfUserCatalog ? "30px" : "0px")};
+  width: 100%;
 `
 
 export const StyledUserList = styled.section<IStyledUserListProps>`
   display: inline-flex;
   flex-wrap: wrap;
-  max-width: 70%;
+  width: 70%;
 `
 
 const LoadingMessageContainer = styled.div`
