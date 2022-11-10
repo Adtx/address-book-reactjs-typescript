@@ -6,7 +6,7 @@ import {
   SearchInput,
   LoadingPausedMessage,
 } from "./styles"
-import { ReactComponent as SearchIcon } from "./searchIcon.svg"
+import { TfiSearch } from "react-icons/tfi"
 
 export default function Search({
   userList,
@@ -40,7 +40,7 @@ export default function Search({
     <>
       <SearchInputContainer>
         <IconContainer>
-          <SearchIcon />
+          <TfiSearch />
         </IconContainer>
         <SearchInput
           type="text"
