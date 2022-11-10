@@ -1,5 +1,12 @@
 import React, { useState } from "react"
 import { User } from "../../../../types"
+import {
+  IconContainer,
+  SearchInputContainer,
+  SearchInput,
+  LoadingPausedMessage,
+} from "./styles"
+import { ReactComponent as SearchIcon } from "./searchIcon.svg"
 
 export default function Search({
   userList,
@@ -31,12 +38,21 @@ export default function Search({
 
   return (
     <>
-      <input
-        type="text"
-        placeholder="Search users by name"
-        onChange={inputChangeHandler}
-      />
-      {displayLoadingPausedMessage && <h3>User loading has been paused.</h3>}
+      <SearchInputContainer>
+        <IconContainer>
+          <SearchIcon />
+        </IconContainer>
+        <SearchInput
+          type="text"
+          placeholder="Search users by name"
+          onChange={inputChangeHandler}
+        />
+        {displayLoadingPausedMessage && (
+          <LoadingPausedMessage>
+            User loading has been paused.
+          </LoadingPausedMessage>
+        )}
+      </SearchInputContainer>
     </>
   )
 }

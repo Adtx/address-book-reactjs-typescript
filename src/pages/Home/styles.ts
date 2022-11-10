@@ -5,4 +5,5 @@ export const StyledHome = styled.main`
   align-items: center;
   flex-direction: column;
   background-color: #f8f9fa;
+  min-height: 100vh;
 `
