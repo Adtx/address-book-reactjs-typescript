@@ -15,9 +15,11 @@ const NEW_USER_BATCH_FETCH_DELAY_IN_MS = 200
 export default function UserList({
   userList,
   setUserList,
+  isSearchActive,
 }: {
   userList: User[]
   setUserList: React.Dispatch<React.SetStateAction<User[]>>
+  isSearchActive: boolean
 }) {
   const [isLoading, setIsLoading] = useState(false)
   const listRef = useRef()
@@ -25,7 +27,7 @@ export default function UserList({
   const endOfCatalog = userList.length >= MAX_CATALOG_LENGTH
 
   const handleScroll = async () => {
-    if (loading) return
+    if (loading || isSearchActive) return
     const moreUsersToLoad = userList.length < MAX_CATALOG_LENGTH
     const lastElement = (listRef.current as any).lastChild
     const pageOffset =
@@ -47,7 +49,7 @@ export default function UserList({
     window.addEventListener("scroll", handleScroll)
 
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [userList])
+  }, [userList, isSearchActive])
 
   return (
     <UserListContainer endOfUserCatalog={endOfCatalog}>

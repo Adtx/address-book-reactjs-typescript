@@ -10,6 +10,7 @@ export default function Home() {
   const [userList, setUserList] = useState<User[]>([])
   const [loadingInitialUserBatch, setLoadingInitialUserBatch] = useState(false)
   const [filteredUserList, setFilteredUserList] = useState<User[] | null>(null)
+  const isSearchActive = filteredUserList !== null
 
   useEffect(() => {
     setLoadingInitialUserBatch(true)
@@ -25,6 +26,7 @@ export default function Home() {
       <UserList
         userList={filteredUserList || userList}
         setUserList={setUserList}
+        isSearchActive={isSearchActive}
       />
       {loadingInitialUserBatch && <LoadingMessage />}
     </StyledHome>
