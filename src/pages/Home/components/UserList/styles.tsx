@@ -94,3 +94,8 @@ export function EndOfCatalogMessage() {
     </StyledMessage>
   )
 }
+
+export const UserNotFoundMessage = styled.h2`
+  position: fixed;
+  top: 15%;
+`

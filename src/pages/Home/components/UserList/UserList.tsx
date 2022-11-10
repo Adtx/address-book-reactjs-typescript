@@ -7,6 +7,7 @@ import {
   UserListContainer,
   LoadingMessage,
   EndOfCatalogMessage,
+  UserNotFoundMessage,
 } from "./styles"
 
 export const MAX_CATALOG_LENGTH = 1000
@@ -25,6 +26,7 @@ export default function UserList({
   const listRef = useRef()
   let loading = false
   const endOfCatalog = userList.length >= MAX_CATALOG_LENGTH
+  const userListEmpty = userList.length === 0
 
   const handleScroll = async () => {
     if (loading || isSearchActive) return
@@ -58,6 +60,11 @@ export default function UserList({
           <UserCard user={user} key={user.login.md5} />
         ))}
       </StyledUserList>
+      {userListEmpty && (
+        <UserNotFoundMessage>
+          Couldn't find a user by that name.
+        </UserNotFoundMessage>
+      )}
       {isLoading && <LoadingMessage />}
       {endOfCatalog && <EndOfCatalogMessage />}
     </UserListContainer>
