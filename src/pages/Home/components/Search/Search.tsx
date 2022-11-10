@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { User } from "../../../../types"
 
 export default function Search({
@@ -8,10 +8,14 @@ export default function Search({
   userList: User[]
   setFilteredUserList: React.Dispatch<React.SetStateAction<User[] | null>>
 }) {
+  const [displayLoadingPausedMessage, setDisplayLoadingPausedMessage] =
+    useState(false)
+
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value
     if (!inputValue) {
       setFilteredUserList(null)
+      setDisplayLoadingPausedMessage(false)
       return
     }
 
@@ -22,13 +26,17 @@ export default function Search({
     })
 
     setFilteredUserList(filteredUserList)
+    setDisplayLoadingPausedMessage(true)
   }
 
   return (
-    <input
-      type="text"
-      placeholder="Search users by name"
-      onChange={inputChangeHandler}
-    />
+    <>
+      <input
+        type="text"
+        placeholder="Search users by name"
+        onChange={inputChangeHandler}
+      />
+      {displayLoadingPausedMessage && <h3>User loading has been paused.</h3>}
+    </>
   )
 }
