@@ -7,7 +7,7 @@ export const StyledSettings = styled.main`
   align-items: center;
   flex-direction: column;
   background-color: #f8f9fa;
-  height: 100%;
+  height: 93%;
 `
 
 export const SettingsContainer = styled.section`
