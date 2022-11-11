@@ -8,7 +8,7 @@ export default function UserCard({ user }: { user: User }) {
         <S.Picture src={user.picture.thumbnail} alt="Profile picture" />
       </S.PictureContainer>
       <S.ProfileContainer>
-        <h3>{`${user.name.first} ${user.name.last}`}</h3>
+        <h3 data-testid="fullname">{`${user.name.first} ${user.name.last}`}</h3>
         <S.UserName data-testid="username">{user.login.username}</S.UserName>
         <S.Email>{user.email}</S.Email>
       </S.ProfileContainer>

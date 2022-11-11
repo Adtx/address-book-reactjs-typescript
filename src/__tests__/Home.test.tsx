@@ -14,7 +14,7 @@ import { MAX_CATALOG_LENGTH } from "../pages/Home/components/UserList/UserList"
 
 const server = setupServer(
   rest.get(RANDOM_USER_API_BASE_URL, (req, res, ctx) => {
-    return res(ctx.json(RANDOM_USER_API_MOCK_RESPONSE_TWO_RESULTS))
+    return res(ctx.json(RANDOM_USER_API_MOCK_RESPONSE_FIFTY_RESULTS))
   })
 )
 
@@ -24,6 +24,12 @@ afterAll(() => server.close())
 
 describe("User list related tests", () => {
   test("displays initial batch of users once they are loaded", async () => {
+    server.use(
+      rest.get(RANDOM_USER_API_BASE_URL, (req, res, ctx) => {
+        return res(ctx.json(RANDOM_USER_API_MOCK_RESPONSE_TWO_RESULTS))
+      })
+    )
+
     const { findAllByRole } = render(<Home />)
 
     const renderedUsers = await findAllByRole("article")
@@ -34,7 +40,6 @@ describe("User list related tests", () => {
       expect(element).toBeVisible()
     })
   })
-
   test("displays all basic user information", async () => {
     server.use(
       rest.get(RANDOM_USER_API_BASE_URL, (req, res, ctx) => {
@@ -42,7 +47,12 @@ describe("User list related tests", () => {
       })
     )
 
-    const { findByRole, findByTestId, findByText } = render(<Home />)
+    const { findByRole, findByTestId, findByText, findAllByRole } = render(
+      <Home />
+    )
+
+    //wait for the initial batch of users to render
+    await findAllByRole("article")
 
     const userProfilePicture = await findByRole("img")
     const userFullName = await findByRole("heading")
@@ -63,11 +73,6 @@ describe("User list related tests", () => {
 
   // This test fails because jsdom doesn't support layout which is needed for scrolling
   test("displays next user batch when scroll reaches end of list", async () => {
-    server.use(
-      rest.get(RANDOM_USER_API_BASE_URL, (req, res, ctx) => {
-        return res(ctx.json(RANDOM_USER_API_MOCK_RESPONSE_FIFTY_RESULTS))
-      })
-    )
     const initialDisplayListSize = 50
     const newUserBatchSize = 50
 
@@ -91,14 +96,7 @@ describe("User list related tests", () => {
       initialDisplayListSize + newUserBatchSize
     )
   })
-
   test("displays loading message while loading initial users batch", async () => {
-    server.use(
-      rest.get(RANDOM_USER_API_BASE_URL, (req, res, ctx) => {
-        return res(ctx.json(RANDOM_USER_API_MOCK_RESPONSE_FIFTY_RESULTS))
-      })
-    )
-
     const { findByText } = render(<Home />)
 
     const loadingMessage = await findByText(/Loading\.{3}/i)
@@ -108,12 +106,6 @@ describe("User list related tests", () => {
 
   // This test fails because jsdom doesn't support layout which is needed for scrolling
   test("displays loading message while loading next users batch", async () => {
-    server.use(
-      rest.get(RANDOM_USER_API_BASE_URL, (req, res, ctx) => {
-        return res(ctx.json(RANDOM_USER_API_MOCK_RESPONSE_FIFTY_RESULTS))
-      })
-    )
-
     const { findAllByRole, findByText } = render(<Home />)
 
     //wait for the initial batch of users to render before scrolling
@@ -133,11 +125,6 @@ describe("User list related tests", () => {
 
   // This test fails because jsdom doesn't support layout which is needed for scrolling
   test("displays end of user catalog message when there are no more users to load", async () => {
-    server.use(
-      rest.get(RANDOM_USER_API_BASE_URL, (req, res, ctx) => {
-        return res(ctx.json(RANDOM_USER_API_MOCK_RESPONSE_FIFTY_RESULTS))
-      })
-    )
     const newUserBatchSize = 50
     const numberOfScrollsUntilEndOfUsersCatalog =
       MAX_CATALOG_LENGTH / newUserBatchSize
@@ -168,11 +155,6 @@ describe("User list related tests", () => {
 
   // This test passes despite using jsdom because the scroll events don't happen(because of jsdom)
   test("does not display more than one thousand users", async () => {
-    server.use(
-      rest.get(RANDOM_USER_API_BASE_URL, (req, res, ctx) => {
-        return res(ctx.json(RANDOM_USER_API_MOCK_RESPONSE_FIFTY_RESULTS))
-      })
-    )
     const newUserBatchSize = 50
     const numberOfScrollsUntilEndOfUsersCatalog =
       MAX_CATALOG_LENGTH / newUserBatchSize
@@ -199,5 +181,78 @@ describe("User list related tests", () => {
     let renderedUsers = await findAllByRole("article")
 
     expect(renderedUsers.length).not.toBeGreaterThan(1000)
+  })
+})
+
+describe("Search related tests", () => {
+  test("displays only users whose full name matches the search term", async () => {
+    const { getByRole, findAllByTestId, findAllByRole } = render(<Home />)
+    const searchBox = getByRole("textbox")
+    const searchInputTestValue = " "
+
+    fireEvent.change(searchBox, { target: { value: searchInputTestValue } })
+
+    const renderedUserFullNames = await findAllByTestId("fullname")
+
+    renderedUserFullNames.forEach((userFullName) => {
+      const userFullNameIncludesTestInput = userFullName
+        .textContent!.toLowerCase()
+        .includes(searchInputTestValue.toLowerCase())
+
+      expect(userFullNameIncludesTestInput).toBeTruthy()
+    })
+  })
+
+  // This test passes despite using jsdom because the scroll events don't happen(because of jsdom)
+  test("disables loading of users when search is active", async () => {
+    const { findAllByRole, getByRole } = render(<Home />)
+    const initialDisplayListSize = 50
+    const searchBox = getByRole("textbox")
+    const searchInputTestValue = "ana"
+
+    //wait for the initial batch of users to render before scrolling
+    await findAllByRole("article")
+
+    fireEvent.change(searchBox, { target: { value: searchInputTestValue } })
+
+    //scroll to the bottom of the page
+    fireEvent.scroll(window, {
+      target: {
+        scrollTop: document.documentElement.clientHeight - window.innerHeight,
+      },
+    })
+
+    let renderedUsers = await findAllByRole("article")
+
+    expect(renderedUsers.length).not.toBeGreaterThan(initialDisplayListSize)
+  })
+
+  test("displays loading paused message while search is active", async () => {
+    const { getByRole } = render(<Home />)
+    const searchBox = getByRole("textbox")
+    const searchInputTestValue = "ana"
+
+    fireEvent.change(searchBox, { target: { value: searchInputTestValue } })
+
+    //wait for state to be set and for component to re-render
+    await new Promise((r) => setTimeout(r, 600))
+
+    const loadingPausedMessage = searchBox.nextElementSibling
+
+    expect(loadingPausedMessage).toBeVisible()
+  })
+
+  test("Displays user not found message when no users match the search term", async () => {
+    const { getByRole, findByText } = render(<Home />)
+    const searchBox = getByRole("textbox")
+    const searchInputTestValue = "hj348ussd782"
+
+    fireEvent.change(searchBox, { target: { value: searchInputTestValue } })
+
+    const userNotFoundMessage = findByText(
+      /Couldn\'t find a user by that name\./i
+    )
+
+    expect(userNotFoundMessage).toBeVisible()
   })
 })
