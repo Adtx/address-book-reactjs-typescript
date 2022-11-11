@@ -17,10 +17,12 @@ export default function UserList({
   userList,
   setUserList,
   isSearchActive,
+  loadingInitialUserBatch,
 }: {
   userList: User[]
   setUserList: React.Dispatch<React.SetStateAction<User[]>>
   isSearchActive: boolean
+  loadingInitialUserBatch: boolean
 }) {
   const [isLoading, setIsLoading] = useState(false)
   const listRef = useRef()
@@ -60,7 +62,7 @@ export default function UserList({
           <UserCard user={user} key={user.login.md5} />
         ))}
       </StyledUserList>
-      {userListEmpty && (
+      {!loadingInitialUserBatch && userListEmpty && (
         <UserNotFoundMessage>
           Couldn't find a user by that name.
         </UserNotFoundMessage>

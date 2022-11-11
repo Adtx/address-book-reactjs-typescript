@@ -27,6 +27,7 @@ export default function Home() {
         userList={filteredUserList || userList}
         setUserList={setUserList}
         isSearchActive={isSearchActive}
+        loadingInitialUserBatch={loadingInitialUserBatch}
       />
       {loadingInitialUserBatch && <LoadingMessage />}
     </StyledHome>
