@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { fetchUsers } from "../../apiUtils"
+import { Navbar } from "../../components/shared/Navbar/Navbar"
 import { User } from "../../types"
 import Search from "./components/Search/Search"
 import { LoadingMessage } from "./components/UserList/styles"
@@ -21,15 +22,18 @@ export default function Home() {
   }, [])
 
   return (
-    <StyledHome>
-      <Search userList={userList} setFilteredUserList={setFilteredUserList} />
-      <UserList
-        userList={filteredUserList || userList}
-        setUserList={setUserList}
-        isSearchActive={isSearchActive}
-        loadingInitialUserBatch={loadingInitialUserBatch}
-      />
-      {loadingInitialUserBatch && <LoadingMessage />}
-    </StyledHome>
+    <>
+      <Navbar />
+      <StyledHome>
+        <Search userList={userList} setFilteredUserList={setFilteredUserList} />
+        <UserList
+          userList={filteredUserList || userList}
+          setUserList={setUserList}
+          isSearchActive={isSearchActive}
+          loadingInitialUserBatch={loadingInitialUserBatch}
+        />
+        {loadingInitialUserBatch && <LoadingMessage />}
+      </StyledHome>
+    </>
   )
 }

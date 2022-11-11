@@ -1,5 +1,11 @@
 import React from "react"
+import { Navbar } from "../../components/shared/Navbar/Navbar"
 
 export default function Settings() {
-  return <h1>Settings</h1>
+  return (
+    <>
+      <Navbar />
+      <h1>Settings</h1>
+    </>
+  )
 }
