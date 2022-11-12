@@ -32,6 +32,7 @@ const LoadingMessageContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.6);
+  z-index: 2;
 `
 
 const StyledMessage = styled.div<IStyledMessageProps>`
