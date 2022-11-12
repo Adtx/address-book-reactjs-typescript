@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { IsMulti, OptionType } from "./types"
 import Select, { StylesConfig } from "react-select"
 import { Navbar } from "../../components/shared/Navbar/Navbar"
@@ -19,7 +19,21 @@ const selectCustomStyles: StylesConfig<OptionType, IsMulti> = {
   }),
 }
 
+const LOCAL_STORAGE_KEY = "settings"
+
+const readSettingsFromLocalStorage = () =>
+  JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "[]")
+
 export default function Settings() {
+  const [selectValue, setSelectValue] = useState(() =>
+    readSettingsFromLocalStorage()
+  )
+
+  const handleSelection = (selectedOptions: any) => {
+    setSelectValue(selectedOptions)
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(selectedOptions))
+  }
+
   return (
     <>
       <Navbar />
@@ -32,6 +46,8 @@ export default function Settings() {
             styles={selectCustomStyles}
             placeholder={"Select nationalities..."}
             isMulti
+            value={selectValue}
+            onChange={handleSelection}
           />
         </SettingsContainer>
       </StyledSettings>
