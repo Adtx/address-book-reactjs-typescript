@@ -20,3 +20,7 @@ export interface IStyledMessageProps {
 export interface IMessageProps {
   marginLeft?: string
 }
+
+export interface IUserListProps {
+  nationalities: String[]
+}

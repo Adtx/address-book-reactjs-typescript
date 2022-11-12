@@ -6,8 +6,9 @@ import Search from "./components/Search/Search"
 import { LoadingMessage } from "./components/UserList/styles"
 import UserList from "./components/UserList/UserList"
 import { StyledHome } from "./styles"
+import { IHomeProps } from "./types"
 
-export default function Home() {
+export default function Home(props: IHomeProps) {
   const [userList, setUserList] = useState<User[]>([])
   const [loadingInitialUserBatch, setLoadingInitialUserBatch] = useState(false)
   const [filteredUserList, setFilteredUserList] = useState<User[] | null>(null)
@@ -15,11 +16,11 @@ export default function Home() {
 
   useEffect(() => {
     setLoadingInitialUserBatch(true)
-    fetchUsers().then((userList) => {
+    fetchUsers(props.nationalities).then((userList) => {
       setUserList(userList!)
       setLoadingInitialUserBatch(false)
     })
-  }, [])
+  }, [props.nationalities])
 
   return (
     <>
@@ -31,6 +32,7 @@ export default function Home() {
           setUserList={setUserList}
           isSearchActive={isSearchActive}
           loadingInitialUserBatch={loadingInitialUserBatch}
+          nationalities={props.nationalities}
         />
         {loadingInitialUserBatch && <LoadingMessage />}
       </StyledHome>

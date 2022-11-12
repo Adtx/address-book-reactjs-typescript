@@ -16,7 +16,7 @@ export const StyledNavbar = styled.nav`
   width: 90%;
   justify-content: space-between;
 `
-export const NavLink = styled.a`
+export const NavLink = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -31,6 +31,10 @@ export const NavLink = styled.a`
   padding: 15px 10px;
   color: black;
   text-decoration: none;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const NavLinkText = styled.h3`

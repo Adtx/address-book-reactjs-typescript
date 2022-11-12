@@ -4,7 +4,7 @@ import Select, { StylesConfig } from "react-select"
 import { Navbar } from "../../components/shared/Navbar/Navbar"
 import { SettingsContainer, StyledSettings, Title } from "./styles"
 import {
-  readSettingsFromLocalStorage,
+  getSettingsFromLocalStorage,
   saveSettingsToLocalStorage,
 } from "../../localStorageUtils"
 
@@ -23,13 +23,17 @@ const selectCustomStyles: StylesConfig<OptionType, IsMulti> = {
   }),
 }
 
-export default function Settings() {
+export default function Settings(props: ISettingsProps) {
   const [selectValue, setSelectValue] = useState(() =>
-    readSettingsFromLocalStorage()
+    getSettingsFromLocalStorage()
   )
 
   const handleSelection = (selectedOptions: any) => {
     setSelectValue(selectedOptions)
+    const selectedCountryCodes = selectedOptions.map(
+      (option: any) => option.value
+    )
+    props.setNationalities(selectedCountryCodes)
     saveSettingsToLocalStorage(selectedOptions)
   }
 

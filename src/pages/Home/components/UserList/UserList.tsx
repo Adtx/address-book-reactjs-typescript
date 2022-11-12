@@ -18,11 +18,13 @@ export default function UserList({
   setUserList,
   isSearchActive,
   loadingInitialUserBatch,
+  nationalities,
 }: {
   userList: User[]
   setUserList: React.Dispatch<React.SetStateAction<User[]>>
   isSearchActive: boolean
   loadingInitialUserBatch: boolean
+  nationalities: String[]
 }) {
   const [isLoading, setIsLoading] = useState(false)
   const listRef = useRef()
@@ -42,7 +44,10 @@ export default function UserList({
       loading = true
       setIsLoading(true)
       //Fetch new user batch after a small delay to allow for the 'Loading...' message to be seen
-      const newUserBatch = await fetchUsers(NEW_USER_BATCH_FETCH_DELAY_IN_MS)
+      const newUserBatch = await fetchUsers(
+        nationalities,
+        NEW_USER_BATCH_FETCH_DELAY_IN_MS
+      )
       setUserList((userList) => [...userList, ...newUserBatch!])
       loading = false
       setIsLoading(false)
