@@ -1,16 +1,19 @@
 import { User } from "../../../../types"
 import * as S from "./styles"
+import { IUserCardProps } from "./types"
 
-export default function UserCard({ user }: { user: User }) {
+export default function UserCard(props: IUserCardProps) {
   return (
-    <S.StyledUserCard key={user.login.md5}>
+    <S.StyledUserCard key={props.user.login.md5} onClick={props.onClick}>
       <S.PictureContainer>
-        <S.Picture src={user.picture.thumbnail} alt="Profile picture" />
+        <S.Picture src={props.user.picture.thumbnail} alt="Profile picture" />
       </S.PictureContainer>
       <S.ProfileContainer>
-        <h3 data-testid="fullname">{`${user.name.first} ${user.name.last}`}</h3>
-        <S.UserName data-testid="username">{user.login.username}</S.UserName>
-        <S.Email>{user.email}</S.Email>
+        <h3 data-testid="fullname">{`${props.user.name.first} ${props.user.name.last}`}</h3>
+        <S.UserName data-testid="username">
+          {props.user.login.username}
+        </S.UserName>
+        <S.Email>{props.user.email}</S.Email>
       </S.ProfileContainer>
     </S.StyledUserCard>
   )

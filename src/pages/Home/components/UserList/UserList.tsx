@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { fetchUsers } from "../../../../apiUtils"
 import { User } from "../../../../types"
 import UserCard from "../UserCard/UserCard"
+import { UserDetailsModal } from "../UserDetailsModal/UserDetailsModal"
 import {
   StyledUserList,
   UserListContainer,
@@ -27,6 +28,8 @@ export default function UserList({
   nationalities: String[]
 }) {
   const [isLoading, setIsLoading] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [clickedUser, setClickedUser] = useState<User | null>(null)
   const listRef = useRef()
   let loading = false
   const endOfCatalog = userList.length >= MAX_CATALOG_LENGTH
@@ -54,6 +57,13 @@ export default function UserList({
     }
   }
 
+  const displayUserDetailsModal = (user: User) => {
+    setShowModal(true)
+    setClickedUser(user)
+  }
+
+  const closeUserDetailsModal = () => setShowModal(false)
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll)
 
@@ -64,13 +74,20 @@ export default function UserList({
     <UserListContainer endOfUserCatalog={endOfCatalog}>
       <StyledUserList ref={listRef}>
         {userList.map((user) => (
-          <UserCard user={user} key={user.login.md5} />
+          <UserCard
+            user={user}
+            key={user.login.md5}
+            onClick={() => displayUserDetailsModal(user)}
+          />
         ))}
       </StyledUserList>
       {!loadingInitialUserBatch && userListEmpty && (
         <UserNotFoundMessage>
           Couldn't find a user by that name.
         </UserNotFoundMessage>
+      )}
+      {showModal && (
+        <UserDetailsModal user={clickedUser!} onClick={closeUserDetailsModal} />
       )}
       {isLoading && <LoadingMessage />}
       {endOfCatalog && <EndOfCatalogMessage />}

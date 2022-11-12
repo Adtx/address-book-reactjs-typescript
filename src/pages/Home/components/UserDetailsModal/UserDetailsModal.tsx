@@ -4,12 +4,13 @@ import { IUserDetailsModalProps } from "./types"
 
 export function UserDetailsModal(props: IUserDetailsModalProps) {
   return (
-    <S.UserDetailsContainer>
+    <S.UserDetailsContainer onClick={props.onClick}>
       <S.UserDetails
         position="fixed"
         top="25%"
         left="50%"
         transform="translateX(-50%)"
+        onClick={(e) => e.stopPropagation()}
       >
         <div>
           <h2 data-testid="modalfullname">{`${props.user.name.first} ${props.user.name.last}`}</h2>
