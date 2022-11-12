@@ -70,6 +70,11 @@ export default function UserList({
     return () => window.removeEventListener("scroll", handleScroll)
   }, [userList, isSearchActive])
 
+  //Disable scrolling when modal is open
+  useEffect(() => {
+    document.body.style.overflow = showModal ? "hidden" : "unset"
+  }, [showModal])
+
   return (
     <UserListContainer endOfUserCatalog={endOfCatalog}>
       <StyledUserList ref={listRef}>
