@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react"
-import { fetchUsers } from "../../../../apiUtils"
 import { User } from "../../../../types"
 import UserCard from "../UserCard/UserCard"
 import { UserDetailsModal } from "../UserDetailsModal/UserDetailsModal"
@@ -19,13 +18,13 @@ export default function UserList({
   setUserList,
   isSearchActive,
   loadingInitialUserBatch,
-  nationalities,
+  preFetchedUserBatch,
 }: {
   userList: User[]
   setUserList: React.Dispatch<React.SetStateAction<User[]>>
   isSearchActive: boolean
   loadingInitialUserBatch: boolean
-  nationalities: String[]
+  preFetchedUserBatch: User[]
 }) {
   const [isLoading, setIsLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -46,12 +45,9 @@ export default function UserList({
     if (moreUsersToLoad && endOfListReached) {
       loading = true
       setIsLoading(true)
-      //Fetch new user batch after a small delay to allow for the 'Loading...' message to be seen
-      const newUserBatch = await fetchUsers(
-        nationalities,
-        NEW_USER_BATCH_FETCH_DELAY_IN_MS
-      )
-      setUserList((userList) => [...userList, ...newUserBatch!])
+      //Wait before adding the pre-fetched user batch to allow for the 'Loading...' message to be seen
+      await new Promise((r) => setTimeout(r, NEW_USER_BATCH_FETCH_DELAY_IN_MS))
+      setUserList((userList) => [...userList, ...preFetchedUserBatch!])
       loading = false
       setIsLoading(false)
     }

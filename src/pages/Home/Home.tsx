@@ -12,15 +12,23 @@ export default function Home(props: IHomeProps) {
   const [userList, setUserList] = useState<User[]>([])
   const [loadingInitialUserBatch, setLoadingInitialUserBatch] = useState(false)
   const [filteredUserList, setFilteredUserList] = useState<User[] | null>(null)
+  const [preFetchedUserBatch, setPreFetchedUserBatch] = useState<User[]>([])
   const isSearchActive = filteredUserList !== null
 
   useEffect(() => {
     setLoadingInitialUserBatch(true)
-    fetchUsers(props.nationalities).then((userList) => {
+    fetchUsers(props.nationalities!).then((userList) => {
       setUserList(userList!)
       setLoadingInitialUserBatch(false)
     })
   }, [props.nationalities])
+
+  //Pre-fetch next batch of users
+  useEffect(() => {
+    fetchUsers(props.nationalities).then((preFetchedBatch) => {
+      setPreFetchedUserBatch(preFetchedBatch!)
+    })
+  }, [userList])
 
   return (
     <>
@@ -32,7 +40,7 @@ export default function Home(props: IHomeProps) {
           setUserList={setUserList}
           isSearchActive={isSearchActive}
           loadingInitialUserBatch={loadingInitialUserBatch}
-          nationalities={props.nationalities}
+          preFetchedUserBatch={preFetchedUserBatch}
         />
         {loadingInitialUserBatch && <LoadingMessage />}
       </StyledHome>
