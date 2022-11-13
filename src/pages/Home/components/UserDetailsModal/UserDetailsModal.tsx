@@ -3,7 +3,10 @@ import { IUserDetailsModalProps } from "./types"
 
 const UserDetailsModal = ({ user, onClick }: IUserDetailsModalProps) => {
   return (
-    <S.UserDetailsContainer onClick={onClick}>
+    <S.UserDetailsContainer
+      data-testid={"userdetailscontainer"}
+      onClick={onClick}
+    >
       <S.UserDetails
         position="fixed"
         top="25%"
@@ -29,7 +32,9 @@ const UserDetailsModal = ({ user, onClick }: IUserDetailsModalProps) => {
             <h4>Postcode</h4>
             <S.Detail>{user.location.postcode}</S.Detail>
             <h4>Country</h4>
-            <S.Detail>{user.location.country}</S.Detail>
+            <S.Detail data-testid={"usernationality"}>
+              {user.location.country}
+            </S.Detail>
             <h4>Phone</h4>
             <S.Detail>{user.phone}</S.Detail>
             <h4>Cell</h4>

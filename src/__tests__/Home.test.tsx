@@ -11,6 +11,7 @@ import {
 } from "../testUtils"
 import { RANDOM_USER_API_BASE_URL } from "../apiUtils"
 import { MAX_CATALOG_LENGTH } from "../pages/Home/components/UserList/UserList"
+import AddressBook from "../AddressBook"
 
 const server = setupServer(
   rest.get(RANDOM_USER_API_BASE_URL, (req, res, ctx) => {
@@ -21,6 +22,10 @@ const server = setupServer(
 beforeAll(() => server.listen())
 afterEach(() => server.resetHandlers())
 afterAll(() => server.close())
+
+jest.mock("nanoid", () => {
+  return { nanoid: () => "1234" }
+})
 
 describe("User list related tests", () => {
   test("displays initial batch of users once they are loaded", async () => {
@@ -254,5 +259,34 @@ describe("Search related tests", () => {
     )
 
     expect(userNotFoundMessage).toBeVisible()
+  })
+})
+
+describe("Settings related tests", () => {
+  test("Displays only users with nationalities from settings page", async () => {
+    const { findByRole, findByTestId, findAllByRole } = render(<AddressBook />)
+
+    const settingsPageLink = await findByRole("link")
+    fireEvent.click(settingsPageLink)
+
+    const settingsInput = await findByRole("textbox")
+    const settingsInputTestValue = [{ value: "ES", label: "Spain" }]
+
+    fireEvent.change(settingsInput, {
+      target: { value: settingsInputTestValue },
+    })
+
+    const homePageLink = await findByRole("link")
+    fireEvent.click(homePageLink)
+
+    let renderedUsers = await findAllByRole("article")
+
+    renderedUsers.forEach(async (userCard) => {
+      fireEvent.click(userCard)
+      const modalContainer = await findByTestId("userdetailscontainer")
+      const userNationality = await findByTestId("usernationality")
+      expect(userNationality.textContent?.toLowerCase()).toBe("spain")
+      fireEvent.click(modalContainer)
+    })
   })
 })
