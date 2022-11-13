@@ -1,6 +1,5 @@
 import { ISettingsProps, IsMulti, OptionType } from "./types"
 import Select, { StylesConfig } from "react-select"
-import Navbar from "../../components/shared/Navbar/Navbar"
 import { SettingsContainer, StyledSettings, Title } from "./styles"
 import {
   getSettingsFromLocalStorage,

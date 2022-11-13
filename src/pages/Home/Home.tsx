@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react"
 import { fetchUsers } from "../../apiUtils"
-import Navbar from "../../components/shared/Navbar/Navbar"
 import { User } from "../../types"
 import Search from "./components/Search/Search"
 import { LoadingMessage } from "./components/UserList/styles"

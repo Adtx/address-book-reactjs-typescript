@@ -1,11 +1,6 @@
 import React, { useState } from "react"
 import { User } from "../../../../types"
-import {
-  IconContainer,
-  SearchInputContainer,
-  SearchInput,
-  LoadingPausedMessage,
-} from "./styles"
+import * as S from "./styles"
 import { TfiSearch } from "react-icons/tfi"
 
 const Search = ({
@@ -38,21 +33,21 @@ const Search = ({
 
   return (
     <>
-      <SearchInputContainer>
-        <IconContainer>
+      <S.SearchInputContainer>
+        <S.IconContainer>
           <TfiSearch />
-        </IconContainer>
-        <SearchInput
+        </S.IconContainer>
+        <S.SearchInput
           type="text"
           placeholder="Search users by name"
           onChange={inputChangeHandler}
         />
         {displayLoadingPausedMessage && (
-          <LoadingPausedMessage>
+          <S.LoadingPausedMessage>
             User loading has been paused.
-          </LoadingPausedMessage>
+          </S.LoadingPausedMessage>
         )}
-      </SearchInputContainer>
+      </S.SearchInputContainer>
     </>
   )
 }

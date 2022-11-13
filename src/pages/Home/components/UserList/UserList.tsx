@@ -2,13 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { User } from "../../../../types"
 import UserCard from "../UserCard/UserCard"
 import UserDetailsModal from "../UserDetailsModal/UserDetailsModal"
-import {
-  StyledUserList,
-  UserListContainer,
-  LoadingMessage,
-  EndOfCatalogMessage,
-  UserNotFoundMessage,
-} from "./styles"
+import * as S from "./styles"
 import { IUserListProps } from "./types"
 import { nanoid } from "nanoid"
 
@@ -68,8 +62,8 @@ const UserList = ({
   const closeUserDetailsModal = () => setShowModal(false)
 
   return (
-    <UserListContainer endOfUserCatalog={endOfCatalog}>
-      <StyledUserList ref={listRef}>
+    <S.UserListContainer endOfUserCatalog={endOfCatalog}>
+      <S.StyledUserList ref={listRef}>
         {userList.map((user) => (
           <UserCard
             user={user}
@@ -77,18 +71,18 @@ const UserList = ({
             onClick={() => displayUserDetailsModal(user)}
           />
         ))}
-      </StyledUserList>
+      </S.StyledUserList>
       {!loadingInitialUserBatch && userListEmpty && (
-        <UserNotFoundMessage>
+        <S.UserNotFoundMessage>
           Couldn't find a user by that name.
-        </UserNotFoundMessage>
+        </S.UserNotFoundMessage>
       )}
       {showModal && (
         <UserDetailsModal user={clickedUser!} onClick={closeUserDetailsModal} />
       )}
-      {isLoading && <LoadingMessage />}
-      {endOfCatalog && <EndOfCatalogMessage />}
-    </UserListContainer>
+      {isLoading && <S.LoadingMessage />}
+      {endOfCatalog && <S.EndOfCatalogMessage />}
+    </S.UserListContainer>
   )
 }
 

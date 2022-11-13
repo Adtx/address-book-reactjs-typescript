@@ -1,13 +1,8 @@
 import styled from "styled-components"
-import {
-  IMessageProps,
-  IStyledMessageProps,
-  IStyledUserListProps,
-  IUserListContainerProps,
-} from "./types"
+import * as T from "./types"
 import spinner from "./spinner.gif"
 
-export const UserListContainer = styled.div<IUserListContainerProps>`
+export const UserListContainer = styled.div<T.IUserListContainerProps>`
   display: flex;
   position: relative;
   flex-direction: column;
@@ -16,7 +11,7 @@ export const UserListContainer = styled.div<IUserListContainerProps>`
   width: 100%;
 `
 
-export const StyledUserList = styled.section<IStyledUserListProps>`
+export const StyledUserList = styled.section<T.IStyledUserListProps>`
   display: inline-flex;
   flex-wrap: wrap;
   width: 70%;
@@ -35,7 +30,7 @@ const LoadingMessageContainer = styled.div`
   z-index: 2;
 `
 
-const StyledMessage = styled.div<IStyledMessageProps>`
+const StyledMessage = styled.div<T.IStyledMessageProps>`
   position: ${(props) => props.position ?? "relative"};
   top: ${(props) => props.top};
   left: ${(props) => props.left};
@@ -64,7 +59,7 @@ const Spinner = styled.img`
   transform: scale(3.5);
 `
 
-const Message = styled.h1<IMessageProps>`
+const Message = styled.h1<T.IMessageProps>`
   margin-left: ${(props) => props.marginLeft ?? "0"};
 `
 

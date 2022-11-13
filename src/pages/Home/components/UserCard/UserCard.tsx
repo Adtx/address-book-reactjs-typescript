@@ -1,4 +1,3 @@
-import { User } from "../../../../types"
 import * as S from "./styles"
 import { IUserCardProps } from "./types"
 
