@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 export const Header = styled.header`
   height: 7%;
@@ -16,6 +17,13 @@ export const StyledNavbar = styled.nav`
   width: 90%;
   justify-content: space-between;
 `
+
+export const StyledLink = styled(Link)`
+  height: 32px;
+  width: 114.625px;
+  text-decoration: none;
+`
+
 export const NavLink = styled.div`
   display: flex;
   justify-content: space-around;
@@ -28,7 +36,6 @@ export const NavLink = styled.div`
   border: 1px solid #eaeaea;
   padding: 15px 10px;
   color: black;
-  text-decoration: none;
 
   &:hover {
     cursor: pointer;
