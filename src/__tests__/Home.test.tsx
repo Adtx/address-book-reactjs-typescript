@@ -191,7 +191,7 @@ describe("User list related tests", () => {
 
 describe("Search related tests", () => {
   test("displays only users whose full name matches the search term", async () => {
-    const { getByRole, findAllByTestId, findAllByRole } = render(<Home />)
+    const { getByRole, findAllByTestId } = render(<Home />)
     const searchBox = getByRole("textbox")
     const searchInputTestValue = " "
 
@@ -254,7 +254,7 @@ describe("Search related tests", () => {
 
     fireEvent.change(searchBox, { target: { value: searchInputTestValue } })
 
-    const userNotFoundMessage = findByText(
+    const userNotFoundMessage = await findByText(
       /Couldn\'t find a user by that name\./i
     )
 
