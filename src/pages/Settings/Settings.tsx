@@ -1,4 +1,3 @@
-import React, { useState } from "react"
 import { ISettingsProps, IsMulti, OptionType } from "./types"
 import Select, { StylesConfig } from "react-select"
 import { Navbar } from "../../components/shared/Navbar/Navbar"
@@ -24,12 +23,7 @@ const selectCustomStyles: StylesConfig<OptionType, IsMulti> = {
 }
 
 export default function Settings(props: ISettingsProps) {
-  const [selectValue, setSelectValue] = useState(() =>
-    getSettingsFromLocalStorage()
-  )
-
   const handleSelection = (selectedOptions: any) => {
-    setSelectValue(selectedOptions)
     const selectedCountryCodes = selectedOptions.map(
       (option: any) => option.value
     )
@@ -49,7 +43,7 @@ export default function Settings(props: ISettingsProps) {
             styles={selectCustomStyles}
             placeholder={"Select nationalities..."}
             isMulti
-            value={selectValue}
+            defaultValue={getSettingsFromLocalStorage()}
             onChange={handleSelection}
           />
         </SettingsContainer>
