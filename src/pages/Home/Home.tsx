@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { fetchUsers } from "../../apiUtils"
 import { Navbar } from "../../components/shared/Navbar/Navbar"
 import { User } from "../../types"
@@ -14,6 +14,7 @@ export default function Home(props: IHomeProps) {
   const [filteredUserList, setFilteredUserList] = useState<User[] | null>(null)
   const [preFetchedUserBatch, setPreFetchedUserBatch] = useState<User[]>([])
   const isSearchActive = filteredUserList !== null
+  const apiResultsPageCount = useRef(0)
 
   useEffect(() => {
     setLoadingInitialUserBatch(true)
@@ -25,9 +26,12 @@ export default function Home(props: IHomeProps) {
 
   //Pre-fetch next batch of users
   useEffect(() => {
-    fetchUsers(props.nationalities).then((preFetchedBatch) => {
-      setPreFetchedUserBatch(preFetchedBatch!)
-    })
+    fetchUsers(props.nationalities, apiResultsPageCount.current).then(
+      (preFetchedBatch) => {
+        setPreFetchedUserBatch(preFetchedBatch!)
+        apiResultsPageCount.current++
+      }
+    )
   }, [userList])
 
   return (
