@@ -33,7 +33,6 @@ const Settings = ({ setNationalities }: ISettingsProps) => {
 
   return (
     <>
-      <Navbar />
       <StyledSettings>
         <SettingsContainer>
           <h1>Settings</h1>

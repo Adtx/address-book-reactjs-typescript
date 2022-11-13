@@ -36,7 +36,6 @@ const Home = ({ nationalities }: IHomeProps) => {
 
   return (
     <>
-      <Navbar />
       <StyledHome>
         <Search userList={userList} setFilteredUserList={setFilteredUserList} />
         <UserList
