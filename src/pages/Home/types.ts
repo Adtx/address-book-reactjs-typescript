@@ -1,3 +1,3 @@
 export interface IHomeProps {
-  nationalities: String[]
+  nationalities?: String[]
 }

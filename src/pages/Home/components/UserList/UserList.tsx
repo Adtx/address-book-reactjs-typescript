@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { User } from "../../../../types"
 import UserCard from "../UserCard/UserCard"
-import { UserDetailsModal } from "../UserDetailsModal/UserDetailsModal"
+import UserDetailsModal from "../UserDetailsModal/UserDetailsModal"
 import {
   StyledUserList,
   UserListContainer,
@@ -9,23 +9,19 @@ import {
   EndOfCatalogMessage,
   UserNotFoundMessage,
 } from "./styles"
+import { IUserListProps } from "./types"
+import { nanoid } from "nanoid"
 
 export const MAX_CATALOG_LENGTH = 1000
 const NEW_USER_BATCH_FETCH_DELAY_IN_MS = 200
 
-export default function UserList({
+const UserList = ({
   userList,
   setUserList,
   isSearchActive,
   loadingInitialUserBatch,
   preFetchedUserBatch,
-}: {
-  userList: User[]
-  setUserList: React.Dispatch<React.SetStateAction<User[]>>
-  isSearchActive: boolean
-  loadingInitialUserBatch: boolean
-  preFetchedUserBatch: User[]
-}) {
+}: IUserListProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [clickedUser, setClickedUser] = useState<User | null>(null)
@@ -33,6 +29,17 @@ export default function UserList({
   let loading = false
   const endOfCatalog = userList.length >= MAX_CATALOG_LENGTH
   const userListEmpty = userList.length === 0
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll)
+
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [userList, isSearchActive])
+
+  //Disable scrolling when modal is open
+  useEffect(() => {
+    document.body.style.overflow = showModal ? "hidden" : "unset"
+  }, [showModal])
 
   const handleScroll = async () => {
     if (loading || isSearchActive) return
@@ -60,24 +67,13 @@ export default function UserList({
 
   const closeUserDetailsModal = () => setShowModal(false)
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll)
-
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [userList, isSearchActive])
-
-  //Disable scrolling when modal is open
-  useEffect(() => {
-    document.body.style.overflow = showModal ? "hidden" : "unset"
-  }, [showModal])
-
   return (
     <UserListContainer endOfUserCatalog={endOfCatalog}>
       <StyledUserList ref={listRef}>
         {userList.map((user) => (
           <UserCard
             user={user}
-            key={user.login.md5}
+            key={nanoid()}
             onClick={() => displayUserDetailsModal(user)}
           />
         ))}
@@ -95,3 +91,5 @@ export default function UserList({
     </UserListContainer>
   )
 }
+
+export default UserList

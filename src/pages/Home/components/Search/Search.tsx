@@ -8,13 +8,13 @@ import {
 } from "./styles"
 import { TfiSearch } from "react-icons/tfi"
 
-export default function Search({
+const Search = ({
   userList,
   setFilteredUserList,
 }: {
   userList: User[]
   setFilteredUserList: React.Dispatch<React.SetStateAction<User[] | null>>
-}) {
+}) => {
   const [displayLoadingPausedMessage, setDisplayLoadingPausedMessage] =
     useState(false)
 
@@ -56,3 +56,5 @@ export default function Search({
     </>
   )
 }
+
+export default Search

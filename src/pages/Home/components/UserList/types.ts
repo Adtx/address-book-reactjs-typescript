@@ -1,3 +1,5 @@
+import { User } from "../../../../types"
+
 export interface IUserListContainerProps {
   endOfUserCatalog?: boolean
 }
@@ -22,5 +24,9 @@ export interface IMessageProps {
 }
 
 export interface IUserListProps {
-  nationalities: String[]
+  userList: User[]
+  setUserList: React.Dispatch<React.SetStateAction<User[]>>
+  isSearchActive: boolean
+  loadingInitialUserBatch: boolean
+  preFetchedUserBatch: User[]
 }

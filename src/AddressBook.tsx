@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"
+import { useState } from "react"
 import Home from "./pages/Home/Home"
 import Settings from "./pages/Settings/Settings"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { getCountryCodeArrayFromLocalStorage } from "./localStorageUtils"
 
-export default function AddressBook() {
+const AddressBook = () => {
   const [nationalities, setNationalities] = useState<String[]>(
     getCountryCodeArrayFromLocalStorage
   )
@@ -21,3 +21,5 @@ export default function AddressBook() {
     </Router>
   )
 }
+
+export default AddressBook

@@ -21,8 +21,6 @@ export const NavLink = styled.div`
   justify-content: space-around;
   align-items: center;
   background-color: #f8f9fa;
-  /* border: 1px solid #ced4da; */
-  /* border-radius: 5px; */
   box-shadow: 0 1px 6px rgba(28, 33, 39, 0.1);
   height: 25%;
   background: #fff;

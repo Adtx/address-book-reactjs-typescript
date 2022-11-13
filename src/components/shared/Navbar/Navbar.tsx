@@ -8,7 +8,7 @@ const NAVIGATION_PATHS = {
   SETTINGS: "/settings",
 }
 
-export function Navbar() {
+const Navbar = () => {
   const { pathname: currentPage } = useLocation()
 
   const navigate = useNavigate()
@@ -33,3 +33,5 @@ export function Navbar() {
     </Header>
   )
 }
+
+export default Navbar

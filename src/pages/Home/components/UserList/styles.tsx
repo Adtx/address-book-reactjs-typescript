@@ -43,7 +43,6 @@ const StyledMessage = styled.div<IStyledMessageProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 25%;
   height: 50px;
   text-align: center;
   background: #fff;
@@ -69,7 +68,7 @@ const Message = styled.h1<IMessageProps>`
   margin-left: ${(props) => props.marginLeft ?? "0"};
 `
 
-export function LoadingMessage() {
+export const LoadingMessage = () => {
   return (
     <LoadingMessageContainer>
       <StyledMessage
@@ -88,7 +87,7 @@ export function LoadingMessage() {
   )
 }
 
-export function EndOfCatalogMessage() {
+export const EndOfCatalogMessage = () => {
   return (
     <StyledMessage width="70%" marginTop="30px" marginLeft="2.5%">
       <Message>End of users catalog</Message>
