@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/address-book-reactjs-typescript/static/css/main.f60bb68c.css",
-    "main.js": "/address-book-reactjs-typescript/static/js/main.d2e68452.js",
+    "main.js": "/address-book-reactjs-typescript/static/js/main.2226b22f.js",
     "index.html": "/address-book-reactjs-typescript/index.html",
     "main.f60bb68c.css.map": "/address-book-reactjs-typescript/static/css/main.f60bb68c.css.map",
-    "main.d2e68452.js.map": "/address-book-reactjs-typescript/static/js/main.d2e68452.js.map"
+    "main.2226b22f.js.map": "/address-book-reactjs-typescript/static/js/main.2226b22f.js.map"
   },
   "entrypoints": [
     "static/css/main.f60bb68c.css",
-    "static/js/main.d2e68452.js"
+    "static/js/main.2226b22f.js"
   ]
 }
