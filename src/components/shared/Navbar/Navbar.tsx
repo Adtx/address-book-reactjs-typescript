@@ -3,9 +3,14 @@ import { GrHomeRounded } from "react-icons/gr"
 import { useLocation } from "react-router-dom"
 import * as S from "./styles"
 
-const NAVIGATION_PATHS = {
-  HOME: "/",
-  SETTINGS: "settings",
+const ROOT_URL =
+  !process.env.NODE_ENV || process.env.NODE_ENV === "development"
+    ? ""
+    : "/address-book-reactjs-typescript"
+
+export const NAVIGATION_PATHS = {
+  HOME: `${ROOT_URL}/`,
+  SETTINGS: `${ROOT_URL}/settings`,
 }
 
 const Navbar = () => {
@@ -23,7 +28,7 @@ const Navbar = () => {
             </S.NavLink>
           </S.StyledLink>
         )}
-        {currentPage === `/${NAVIGATION_PATHS.SETTINGS}` && (
+        {currentPage === `${NAVIGATION_PATHS.SETTINGS}` && (
           <S.StyledLink to={NAVIGATION_PATHS.HOME}>
             <S.NavLink>
               <GrHomeRounded />
