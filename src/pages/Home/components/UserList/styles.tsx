@@ -15,6 +15,11 @@ export const StyledUserList = styled.section<T.IStyledUserListProps>`
   display: inline-flex;
   flex-wrap: wrap;
   width: 70%;
+
+  @media (max-width: 1280px) {
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 const LoadingMessageContainer = styled.div`

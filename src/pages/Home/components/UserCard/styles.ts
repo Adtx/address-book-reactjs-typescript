@@ -13,6 +13,10 @@ export const StyledUserCard = styled.article`
     cursor: pointer;
     box-shadow: 0 1px 6px 2px rgba(28, 33, 39, 0.1);
   }
+
+  @media (max-width: 1280px) {
+    width: 100%;
+  }
 `
 export const PictureContainer = styled.div`
   width: 33%;

@@ -1,4 +1,5 @@
 import * as S from "./styles"
+import { SlClose } from "react-icons/sl"
 import { IUserDetailsModalProps } from "./types"
 
 const UserDetailsModal = ({ user, onClick }: IUserDetailsModalProps) => {
@@ -15,6 +16,11 @@ const UserDetailsModal = ({ user, onClick }: IUserDetailsModalProps) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div>
+          <S.CloseButtonArea>
+            <S.CloseButton onClick={onClick} data-testid="closebutton">
+              <SlClose />
+            </S.CloseButton>
+          </S.CloseButtonArea>
           <h2 data-testid="modalfullname">{`${user.name.first} ${user.name.last}`}</h2>
           <S.Picture src={user.picture.thumbnail} alt="Profile picture" />
           <S.UserName data-testid="modalusername">
