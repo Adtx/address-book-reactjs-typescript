@@ -1,12 +1,12 @@
 import styled from "styled-components"
 
 export const StyledUserCard = styled.article`
-  display: flex;
   background: #fff;
-  border-radius: 5px;
   border: 1px solid #eaeaea;
-  padding: 1rem;
+  border-radius: 5px;
+  display: flex;
   margin: 5px 0 5px 3.33%;
+  padding: 1rem;
   width: 30%;
 
   &:hover {
@@ -19,16 +19,16 @@ export const StyledUserCard = styled.article`
   }
 `
 export const PictureContainer = styled.div`
-  width: 33%;
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
+  width: 33%;
 `
 
 export const Picture = styled.img`
-  width: 70px;
-  height: 70px;
   border-radius: 50%;
+  height: 70px;
+  width: 70px;
 `
 
 export const ProfileContainer = styled.div`
@@ -36,8 +36,8 @@ export const ProfileContainer = styled.div`
 `
 
 export const UserName = styled.p`
-  font-size: 80%;
   color: #6c757d;
+  font-size: 80%;
   margin-bottom: 0.4rem;
 `
 

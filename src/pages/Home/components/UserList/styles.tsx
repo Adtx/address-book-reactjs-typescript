@@ -3,11 +3,11 @@ import * as T from "./types"
 import spinner from "./spinner.gif"
 
 export const UserListContainer = styled.div<T.IUserListContainerProps>`
-  display: flex;
-  position: relative;
-  flex-direction: column;
   align-items: center;
+  display: flex;
+  flex-direction: column;
   margin-bottom: ${(props) => (props.endOfUserCatalog ? "30px" : "0px")};
+  position: relative;
   width: 100%;
 `
 
@@ -23,40 +23,40 @@ export const StyledUserList = styled.section<T.IStyledUserListProps>`
 `
 
 const LoadingMessageContainer = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.6);
+  bottom: 0;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  width: 100%;
   z-index: 2;
 `
 
 const StyledMessage = styled.div<T.IStyledMessageProps>`
-  position: ${(props) => props.position ?? "relative"};
-  top: ${(props) => props.top};
-  left: ${(props) => props.left};
-  transform: ${(props) => props.transform ?? "initial"};
-  display: flex;
-  justify-content: center;
   align-items: center;
-  height: 50px;
-  text-align: center;
   background: #fff;
-  border-radius: 5px;
   border: 1px solid #eaeaea;
-  width: ${(props) => props.width ?? "initial"};
-  margin-top: ${(props) => props.marginTop};
+  border-radius: 5px;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  left: ${(props) => props.left};
   margin-left: ${(props) => props.marginLeft};
+  margin-top: ${(props) => props.marginTop};
+  position: ${(props) => props.position ?? "relative"};
+  text-align: center;
+  top: ${(props) => props.top};
+  transform: ${(props) => props.transform ?? "initial"};
+  width: ${(props) => props.width ?? "initial"};
 `
 
 const SpinnerContainer = styled.div`
   display: inline-block;
-  overflow: hidden;
   height: 100%;
+  overflow: hidden;
 `
 
 const Spinner = styled.img`
