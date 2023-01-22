@@ -1,8 +1,8 @@
 import * as S from "./styles"
 import { SlClose } from "react-icons/sl"
-import { IUserDetailsModalProps } from "./types"
+import { UserDetailsModalProps } from "./types"
 
-const UserDetailsModal = ({ user, onClick }: IUserDetailsModalProps) => {
+const UserDetailsModal = ({ user, onClick }: UserDetailsModalProps) => {
   return (
     <S.UserDetailsContainer
       data-testid={"userdetailscontainer"}

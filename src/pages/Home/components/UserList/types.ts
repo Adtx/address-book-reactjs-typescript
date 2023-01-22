@@ -1,21 +1,21 @@
 import { User } from "../../../../types"
 
-export interface IUserListContainerProps {
+export interface UserListContainerProps {
   endOfUserCatalog?: boolean
 }
-export interface IStyledUserListProps {
+export interface StyledUserListProps {
   ref?: any
 }
 
-export interface IStyledMessageProps {
+export interface StyledMessageProps {
   width?: string
 }
 
-export interface IMessageProps {
+export interface MessageProps {
   marginLeft?: string
 }
 
-export interface IUserListProps {
+export interface UserListProps {
   userList: User[]
   setUserList: React.Dispatch<React.SetStateAction<User[]>>
   isSearchActive: boolean

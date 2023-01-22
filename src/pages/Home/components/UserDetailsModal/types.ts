@@ -1,6 +1,6 @@
 import { User } from "../../../../types"
 
-export interface IUserDetailsModalProps {
+export interface UserDetailsModalProps {
   user: User
   onClick: () => void
 }

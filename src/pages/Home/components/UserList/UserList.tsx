@@ -3,7 +3,7 @@ import { User } from "../../../../types"
 import UserCard from "../UserCard/UserCard"
 import UserDetailsModal from "../UserDetailsModal/UserDetailsModal"
 import * as S from "./styles"
-import { IUserListProps } from "./types"
+import { UserListProps } from "./types"
 import { nanoid } from "nanoid"
 
 export const MAX_CATALOG_LENGTH = 1000
@@ -15,7 +15,7 @@ const UserList = ({
   isSearchActive,
   loadingInitialUserBatch,
   preFetchedUserBatch,
-}: IUserListProps) => {
+}: UserListProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [clickedUser, setClickedUser] = useState<User | null>(null)

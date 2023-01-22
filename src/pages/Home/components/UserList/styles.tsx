@@ -2,7 +2,7 @@ import styled from "styled-components"
 import * as T from "./types"
 import spinner from "./spinner.gif"
 
-export const UserListContainer = styled.div<T.IUserListContainerProps>`
+export const UserListContainer = styled.div<T.UserListContainerProps>`
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -11,7 +11,7 @@ export const UserListContainer = styled.div<T.IUserListContainerProps>`
   width: 100%;
 `
 
-export const StyledUserList = styled.section<T.IStyledUserListProps>`
+export const StyledUserList = styled.section<T.StyledUserListProps>`
   display: inline-flex;
   flex-wrap: wrap;
   width: 70%;
@@ -35,7 +35,7 @@ const LoadingMessageContainer = styled.div`
   z-index: 2;
 `
 
-const StyledMessage = styled.div<T.IStyledMessageProps>`
+const StyledMessage = styled.div<T.StyledMessageProps>`
   align-items: center;
   background: #fff;
   border: 1px solid #eaeaea;
@@ -64,7 +64,7 @@ const Spinner = styled.img`
   transform: scale(3.5);
 `
 
-const Message = styled.h1<T.IMessageProps>`
+const Message = styled.h1<T.MessageProps>`
   margin-left: ${(props) => props.marginLeft ?? "0"};
 `
 

@@ -1,7 +1,7 @@
 import * as S from "./styles"
-import { IUserCardProps } from "./types"
+import { UserCardProps } from "./types"
 
-const UserCard = ({ user, onClick }: IUserCardProps) => {
+const UserCard = ({ user, onClick }: UserCardProps) => {
   return (
     <S.StyledUserCard onClick={onClick}>
       <S.PictureContainer>

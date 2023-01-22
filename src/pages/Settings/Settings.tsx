@@ -1,4 +1,4 @@
-import { ISettingsProps, IsMulti, OptionType } from "./types"
+import { SettingsProps, IsMulti, OptionType } from "./types"
 import Select, { StylesConfig } from "react-select"
 import { SettingsContainer, StyledSettings, Title } from "./styles"
 import {
@@ -21,7 +21,7 @@ const selectCustomStyles: StylesConfig<OptionType, IsMulti> = {
   }),
 }
 
-const Settings = ({ setNationalities }: ISettingsProps) => {
+const Settings = ({ setNationalities }: SettingsProps) => {
   const handleSelection = (selectedOptions: any) => {
     const selectedCountryCodes = selectedOptions.map(
       (option: any) => option.value

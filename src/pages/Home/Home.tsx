@@ -5,9 +5,9 @@ import Search from "./components/Search/Search"
 import { LoadingMessage } from "./components/UserList/styles"
 import UserList from "./components/UserList/UserList"
 import { StyledHome } from "./styles"
-import { IHomeProps } from "./types"
+import { HomeProps } from "./types"
 
-const Home = ({ nationalities }: IHomeProps) => {
+const Home = ({ nationalities }: HomeProps) => {
   const [userList, setUserList] = useState<User[]>([])
   const [loadingInitialUserBatch, setLoadingInitialUserBatch] = useState(false)
   const [filteredUserList, setFilteredUserList] = useState<User[] | null>(null)
