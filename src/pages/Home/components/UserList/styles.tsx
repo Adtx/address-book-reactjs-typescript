@@ -43,13 +43,13 @@ const StyledMessage = styled.div<T.IStyledMessageProps>`
   display: flex;
   height: 50px;
   justify-content: center;
-  left: ${(props) => props.left};
-  margin-left: ${(props) => props.marginLeft};
-  margin-top: ${(props) => props.marginTop};
-  position: ${(props) => props.position ?? "relative"};
+  left: 50%;
+  margin-left: 2.5%;
+  margin-top: 30px;
+  position: fixed;
   text-align: center;
-  top: ${(props) => props.top};
-  transform: ${(props) => props.transform ?? "initial"};
+  top: 50%;
+  transform: translateX(-50%);
   width: ${(props) => props.width ?? "initial"};
 `
 
@@ -71,13 +71,7 @@ const Message = styled.h1<T.IMessageProps>`
 export const LoadingMessage = () => {
   return (
     <LoadingMessageContainer>
-      <StyledMessage
-        position="fixed"
-        top="50%"
-        left="50%"
-        width="25%"
-        transform="translateX(-50%)"
-      >
+      <StyledMessage width="25%">
         <SpinnerContainer>
           <Spinner src={spinner} alt="Loading..." />
         </SpinnerContainer>
@@ -89,7 +83,7 @@ export const LoadingMessage = () => {
 
 export const EndOfCatalogMessage = () => {
   return (
-    <StyledMessage width="70%" marginTop="30px" marginLeft="2.5%">
+    <StyledMessage width="70%">
       <Message>End of users catalog</Message>
     </StyledMessage>
   )

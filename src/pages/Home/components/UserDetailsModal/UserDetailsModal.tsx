@@ -8,13 +8,7 @@ const UserDetailsModal = ({ user, onClick }: IUserDetailsModalProps) => {
       data-testid={"userdetailscontainer"}
       onClick={onClick}
     >
-      <S.UserDetails
-        position="fixed"
-        top="25%"
-        left="50%"
-        transform="translateX(-50%)"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <S.UserDetails onClick={(e) => e.stopPropagation()}>
         <div>
           <S.CloseButtonArea>
             <S.CloseButton onClick={onClick} data-testid="closebutton">

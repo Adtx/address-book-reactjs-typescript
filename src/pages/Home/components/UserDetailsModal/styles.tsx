@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { IUserDetailsProps } from "./types"
 
 export const UserDetailsContainer = styled.div`
   align-items: center;
@@ -24,7 +23,7 @@ export const UserDetailsContainer = styled.div`
   }
 `
 
-export const UserDetails = styled.article<IUserDetailsProps>`
+export const UserDetails = styled.article`
   align-items: center;
   background: #fff;
   border: 1px solid #eaeaea;
@@ -32,14 +31,12 @@ export const UserDetails = styled.article<IUserDetailsProps>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  left: ${(props) => props.left};
-  margin-left: ${(props) => props.marginLeft};
-  margin-top: ${(props) => props.marginTop};
+  left: 50%;
   min-height: 60vh;
-  position: ${(props) => props.position ?? "relative"};
+  position: fixed;
   text-align: center;
-  top: ${(props) => props.top};
-  transform: ${(props) => props.transform ?? "initial"};
+  top: 25%;
+  transform: translateX(-50%);
   width: 25%;
 
   @media (max-width: 1450px) {
