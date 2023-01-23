@@ -2,10 +2,20 @@ import { useEffect, useRef, useState } from "react"
 import { fetchUsers } from "../../apiUtils"
 import { User } from "../../types"
 import Search from "./components/Search/Search"
-import { LoadingMessage } from "./components/UserList/styles"
+import { LoadingMessage } from "./components/UserList/UserList"
 import UserList from "./components/UserList/UserList"
-import { StyledHome } from "./styles"
-import { HomeProps } from "./types"
+import styled from "styled-components"
+
+const StyledHome = styled.main`
+  align-items: center;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`
+interface HomeProps {
+  nationalities?: String[]
+}
 
 const Home = ({ nationalities }: HomeProps) => {
   const [userList, setUserList] = useState<User[]>([])

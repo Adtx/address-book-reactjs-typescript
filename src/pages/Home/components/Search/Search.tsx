@@ -1,7 +1,46 @@
 import React, { useState } from "react"
 import { User } from "../../../../types"
-import * as S from "./styles"
 import { TfiSearch } from "react-icons/tfi"
+import styled from "styled-components"
+
+export const SearchInputContainer = styled.div`
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 32px;
+  box-shadow: 0 1px 6px rgba(28, 33, 39, 0.1);
+  display: flex;
+  margin: 1rem 0;
+  padding: 0.375rem 0.75rem;
+  position: sticky;
+  top: 15px;
+  width: 45%;
+  z-index: 1;
+`
+
+const IconContainer = styled.div`
+  padding-left: 0.4rem;
+  padding-right: 0.6rem;
+`
+
+const SearchInput = styled.input`
+  border: 0;
+  background-color: #fff;
+  background-clip: padding-box;
+  color: #495057;
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 2;
+  outline: 0;
+  padding: 0;
+  width: 75%;
+`
+
+const LoadingPausedMessage = styled.p`
+  color: #6c757d;
+  font-size: 80%;
+`
 
 const Search = ({
   userList,
@@ -33,21 +72,21 @@ const Search = ({
 
   return (
     <>
-      <S.SearchInputContainer>
-        <S.IconContainer>
+      <SearchInputContainer>
+        <IconContainer>
           <TfiSearch />
-        </S.IconContainer>
-        <S.SearchInput
+        </IconContainer>
+        <SearchInput
           type="text"
           placeholder="Search users by name"
           onChange={inputChangeHandler}
         />
         {displayLoadingPausedMessage && (
-          <S.LoadingPausedMessage>
+          <LoadingPausedMessage>
             User loading has been paused.
-          </S.LoadingPausedMessage>
+          </LoadingPausedMessage>
         )}
-      </S.SearchInputContainer>
+      </SearchInputContainer>
     </>
   )
 }

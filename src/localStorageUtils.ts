@@ -1,4 +1,4 @@
-import { OptionType } from "./pages/Settings/types"
+import { OptionType } from "./pages/Settings/Settings"
 
 const LOCAL_STORAGE_KEY = "settings"
 

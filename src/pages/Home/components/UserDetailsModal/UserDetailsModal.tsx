@@ -1,48 +1,158 @@
-import * as S from "./styles"
 import { SlClose } from "react-icons/sl"
-import { UserDetailsModalProps } from "./types"
+import styled from "styled-components"
+import { User } from "../../../../types"
+
+const UserDetailsContainer = styled.div`
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  bottom: 0;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  width: 100vw;
+  z-index: 2;
+
+  @media (max-width: 630px) {
+    background-color: #f8f9fa;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 7%;
+    z-index: 1;
+  }
+`
+
+const UserDetails = styled.article`
+  align-items: center;
+  background: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 50%;
+  min-height: 60vh;
+  position: fixed;
+  text-align: center;
+  top: 25%;
+  transform: translateX(-50%);
+  width: 25%;
+
+  @media (max-width: 1450px) {
+    width: 40%;
+  }
+
+  @media (max-width: 1025px) {
+    width: 55%;
+  }
+
+  @media (max-width: 630px) {
+    align-items: center;
+    position: fixed;
+    top: 10%;
+    width: 85vw;
+    z-index: 1;
+  }
+
+  @media (max-height: 625px) {
+    top: 5%;
+  }
+`
+
+const CloseButtonArea = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4%;
+  margin-top: 2%;
+
+  @media (min-width: 631px) {
+    display: none;
+  }
+`
+
+const CloseButton = styled.div`
+  & > * {
+    transform: scale(1.5);
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+interface UserDetailsModalProps {
+  user: User
+  onClick: () => void
+}
+
+const Picture = styled.img`
+  border-radius: 50%;
+  height: 100px;
+  margin-top: 5px;
+  width: 100px;
+`
+
+const UserName = styled.p`
+  color: #6c757d;
+  font-size: 80%;
+  margin-bottom: 0.4rem;
+`
+
+const ProfileContainer = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20%;
+`
+
+const Detail = styled.p`
+  color: #6c757d;
+  font-size: 95%;
+  margin-bottom: 5px;
+`
 
 const UserDetailsModal = ({ user, onClick }: UserDetailsModalProps) => {
   return (
-    <S.UserDetailsContainer
+    <UserDetailsContainer
       data-testid={"userdetailscontainer"}
       onClick={onClick}
     >
-      <S.UserDetails onClick={(e) => e.stopPropagation()}>
+      <UserDetails onClick={(e) => e.stopPropagation()}>
         <div>
-          <S.CloseButtonArea>
-            <S.CloseButton onClick={onClick} data-testid="closebutton">
+          <CloseButtonArea>
+            <CloseButton onClick={onClick} data-testid="closebutton">
               <SlClose />
-            </S.CloseButton>
-          </S.CloseButtonArea>
+            </CloseButton>
+          </CloseButtonArea>
           <h2 data-testid="modalfullname">{`${user.name.first} ${user.name.last}`}</h2>
-          <S.Picture src={user.picture.thumbnail} alt="Profile picture" />
-          <S.UserName data-testid="modalusername">
-            {user.login.username}
-          </S.UserName>
-          <S.ProfileContainer>
+          <Picture src={user.picture.thumbnail} alt="Profile picture" />
+          <UserName data-testid="modalusername">{user.login.username}</UserName>
+          <ProfileContainer>
             <h4>Email</h4>
-            <S.Detail>{user.email}</S.Detail>
+            <Detail>{user.email}</Detail>
             <h4>Street</h4>
-            <S.Detail>{user.location.street.name}</S.Detail>
+            <Detail>{user.location.street.name}</Detail>
             <h4>City</h4>
-            <S.Detail>{user.location.city}</S.Detail>
+            <Detail>{user.location.city}</Detail>
             <h4>State</h4>
-            <S.Detail>{user.location.state}</S.Detail>
+            <Detail>{user.location.state}</Detail>
             <h4>Postcode</h4>
-            <S.Detail>{user.location.postcode}</S.Detail>
+            <Detail>{user.location.postcode}</Detail>
             <h4>Country</h4>
-            <S.Detail data-testid={"usernationality"}>
+            <Detail data-testid={"usernationality"}>
               {user.location.country}
-            </S.Detail>
+            </Detail>
             <h4>Phone</h4>
-            <S.Detail>{user.phone}</S.Detail>
+            <Detail>{user.phone}</Detail>
             <h4>Cell</h4>
-            <S.Detail>{user.cell}</S.Detail>
-          </S.ProfileContainer>
+            <Detail>{user.cell}</Detail>
+          </ProfileContainer>
         </div>
-      </S.UserDetails>
-    </S.UserDetailsContainer>
+      </UserDetails>
+    </UserDetailsContainer>
   )
 }
 
