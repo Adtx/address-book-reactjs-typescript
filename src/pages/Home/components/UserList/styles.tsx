@@ -11,7 +11,7 @@ export const UserListContainer = styled.div<T.UserListContainerProps>`
   width: 100%;
 `
 
-export const StyledUserList = styled.section<T.StyledUserListProps>`
+export const StyledUserList = styled.section`
   display: inline-flex;
   flex-wrap: wrap;
   width: 70%;

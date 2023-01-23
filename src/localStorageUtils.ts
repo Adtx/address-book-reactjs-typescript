@@ -6,7 +6,7 @@ export const getSettingsFromLocalStorage = (): OptionType[] =>
   JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "[]")
 
 export const saveSettingsToLocalStorage = (
-  selectedNationalities: OptionType[]
+  selectedNationalities: readonly OptionType[]
 ) =>
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(selectedNationalities))
 

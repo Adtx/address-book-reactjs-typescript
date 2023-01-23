@@ -1,5 +1,5 @@
-import { SettingsProps, IsMulti, OptionType } from "./types"
-import Select, { StylesConfig } from "react-select"
+import { SettingsProps, OptionType } from "./types"
+import Select, { MultiValue, StylesConfig } from "react-select"
 import { SettingsContainer, StyledSettings, Title } from "./styles"
 import {
   getSettingsFromLocalStorage,
@@ -13,7 +13,7 @@ const countryCodeNameMapping = [
   { value: "GB", label: "United Kingdom" },
 ]
 
-const selectCustomStyles: StylesConfig<OptionType, IsMulti> = {
+const selectCustomStyles: StylesConfig<OptionType, true> = {
   control: (provided) => ({
     ...provided,
     width: "300px",
@@ -22,10 +22,8 @@ const selectCustomStyles: StylesConfig<OptionType, IsMulti> = {
 }
 
 const Settings = ({ setNationalities }: SettingsProps) => {
-  const handleSelection = (selectedOptions: any) => {
-    const selectedCountryCodes = selectedOptions.map(
-      (option: any) => option.value
-    )
+  const handleSelection = (selectedOptions: MultiValue<OptionType>) => {
+    const selectedCountryCodes = selectedOptions.map((option) => option.value)
     setNationalities(selectedCountryCodes)
     saveSettingsToLocalStorage(selectedOptions)
   }

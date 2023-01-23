@@ -19,7 +19,7 @@ const UserList = ({
   const [isLoading, setIsLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [clickedUser, setClickedUser] = useState<User | null>(null)
-  const listRef = useRef()
+  const listRef = useRef<HTMLElement>(null)
   let loading = false
   const endOfCatalog = userList.length >= MAX_CATALOG_LENGTH
   const userListEmpty = userList.length === 0
@@ -38,7 +38,7 @@ const UserList = ({
   const handleScroll = async () => {
     if (loading || isSearchActive) return
     const moreUsersToLoad = userList.length < MAX_CATALOG_LENGTH
-    const lastElement = (listRef.current as any).lastChild
+    const lastElement = listRef.current!.lastChild as HTMLElement
     const pageOffset =
       window.pageYOffset + document.documentElement.clientHeight
     const endOfListReached = lastElement && lastElement.offsetTop < pageOffset

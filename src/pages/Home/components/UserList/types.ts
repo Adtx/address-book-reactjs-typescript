@@ -3,10 +3,6 @@ import { User } from "../../../../types"
 export interface UserListContainerProps {
   endOfUserCatalog?: boolean
 }
-export interface StyledUserListProps {
-  ref?: any
-}
-
 export interface StyledMessageProps {
   width?: string
 }
