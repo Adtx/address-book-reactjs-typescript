@@ -2,7 +2,7 @@ import Select, { MultiValue, StylesConfig } from "react-select"
 import {
   getSettingsFromLocalStorage,
   saveSettingsToLocalStorage,
-} from "../../localStorageUtils"
+} from "../localStorageUtils"
 import styled from "styled-components"
 
 const StyledSettings = styled.main`

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { fetchUsers } from "../../apiUtils"
 import { User } from "../../types"
-import Search from "./components/Search/Search"
+import Search from "./components/Search"
 import { LoadingMessage } from "./components/UserList/UserList"
 import UserList from "./components/UserList/UserList"
 import styled from "styled-components"

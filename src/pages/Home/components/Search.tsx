@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { User } from "../../../../types"
+import { User } from "../../../types"
 import { TfiSearch } from "react-icons/tfi"
 import styled from "styled-components"
 

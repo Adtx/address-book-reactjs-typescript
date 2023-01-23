@@ -1,6 +1,6 @@
 import { SlClose } from "react-icons/sl"
 import styled from "styled-components"
-import { User } from "../../../../types"
+import { User } from "../../../types"
 
 const UserDetailsContainer = styled.div`
   align-items: center;

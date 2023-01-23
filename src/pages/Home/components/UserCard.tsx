@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { User } from "../../../../types"
+import { User } from "../../../types"
 
 const StyledUserCard = styled.article`
   background: #fff;
